@@ -17,9 +17,9 @@ const PORT = 5000;
 
 // Middleware
 app.use(cors({
-  // origin: 'http://localhost:3000', // Your client's address
-  // credentials: true
-   origin: '*'
+  origin: 'http://localhost:3000', // Your client's address
+  credentials: true
+   //origin: '*'
 }));
 app.use(bodyParser.json());
 app.use(cookieParser());
