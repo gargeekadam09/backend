@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-   // Your client's address
+  origin: 'https://client-rust-phi.vercel.app/', // Your client's address
   credentials: true
    //origin: '*'
 }));
