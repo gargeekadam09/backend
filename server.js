@@ -3,9 +3,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-// Import middleware
-const authMiddleware = require('./middleware/authMiddleware');
-
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
@@ -15,25 +12,28 @@ const saleRoutes = require('./routes/saleRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// CORS configuration
+const corsOptions = {
+  origin: 'https://client-rust-phi.vercel.app',  // Your frontend URL
+  credentials: true,  // Allow cookies or credentials
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
+
+// This handles preflight requests for all routes
+app.options('*', cors());
+
 // Middleware
-app.use(cors({
-  origin: 'https://client-rust-phi.vercel.app/', // Your client's address
-  credentials: true
-   //origin: '*'
-}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Public routes
 app.use('/api/auth', authRoutes);
 
-// Service routes - read operations public, write operations protected
+// Other routes
 app.use('/api/services', serviceRoutes);
-
-// Customer routes - temporarily removing strict authentication
 app.use('/api/customers', customerRoutes);
-
-// Sales routes - temporarily removing strict authentication
 app.use('/api/sales', saleRoutes);
 
 // Simple test route
