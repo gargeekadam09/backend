@@ -11,7 +11,6 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-// Export the pool promise-based version for async/await usage
 const promisePool = pool.promise();
 
 // Test the connection with a query using the pool
@@ -26,3 +25,5 @@ async function testConnection() {
 
 // Call the test connection function
 testConnection();
+
+module.exports = pool.promise();
